@@ -1,5 +1,5 @@
 import { ANSI } from "./utils/ansi.mjs";
-import { print, clearScreen } from "./utils/io.mjs";
+import { print, clearScreen, printCenterd } from "./utils/io.mjs";
 import SplashScreen from "./game/splash.mjs";
 import { FIRST_PLAYER, SECOND_PLAYER } from "./consts.mjs";
 import createMenu from "./utils/menu.mjs";
@@ -16,6 +16,7 @@ let gameLoop = null;        // Variable that keeps a refrence to the interval id
 let mainMenuScene = null;
 
 (function initialize() {
+    resolutionCheck();
     print(ANSI.HIDE_CURSOR);
     clearScreen();
     mainMenuScene = createMenu(MAIN_MENU_ITEMS);
@@ -33,6 +34,13 @@ function update() {
     }
 }
 
+function resolutionCheck() {
+    if (process.stdout.rows < 27) {
+        clearScreen();
+        printCenterd("Window too Small");
+        process.exit();
+    }
+}
 // Suport / Utility functions ---------------------------------------------------------------
 
 function buildMenu() {
