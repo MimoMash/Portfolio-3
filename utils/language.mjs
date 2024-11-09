@@ -1,6 +1,8 @@
 const DICTIONARY = {
     en: {
-        language: "",
+        selectLanguage: "Select Language",
+        langEnglish: "English",
+        langNorwegian: "Norwegian",
         startGame: "Start Game",
         exitGame: "Exit Game",
         window: "Window Too Small",
@@ -15,9 +17,17 @@ const DICTIONARY = {
         getReadyP1: "First player get ready.",
         getReadyP2: "Second player get ready.",
         shipPlacement: "SHIP PLACEMENT",
+        spaces: "Spaces",
+        carrier: "Carrier",
+        battleship: "Battleship",
+        cruiser: "Cruiser",
+        submarine: "Submarine",
+        destroyer: "Destroyer"
     },
     no:{
-        language: "",
+        selectLanguage: "Velg Språk",
+        langEnglish: "Engelsk",
+        langNorwegian: "Norsk",
         startGame: "Start Spill",
         exitGame: "Avslutt Spill",
         window: "Skjermen er for Liten",
@@ -32,6 +42,12 @@ const DICTIONARY = {
         getReadyP1: "Gjør deg klar spiller en",
         getReadyP2: "Gjør deg klar spiller to",
         shipPlacement: "SKIP PLASSERING",
+        spaces: "Mellomrom",
+        carrier: "Carrier",
+        battleship: "Battleship",
+        cruiser: "Cruiser",
+        submarine: "U-båt",
+        destroyer: "Destroyer"
     },
     
 }
