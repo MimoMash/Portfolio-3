@@ -123,17 +123,18 @@ function createMapLayoutScreen() {
                     if (this.currentShipIndex < this.ships.length) {
                         this.ship = this.ships[this.currentShipIndex];
                     } else {
-                        this.next = this.transitionFn();
-                        this.transitionTo = "next state";
+                        if (this.currentShipIndex >= this.ships.length) {
+                            this.next = this.transitionFn(this.map); 
+                            this.transitionTo = "next state";
+                        }
                     }
-
                 }
             }
         },
 
         draw: function (dr) {
 
-            if (this.isDrawn == true) { return; } // We do not want to draw if there is no change. 
+            if (this.isDrawn == true) { return; }  
             this.isDrawn = true;
 
             clearScreen();
@@ -143,7 +144,7 @@ function createMapLayoutScreen() {
 
             output += '  ';
             for (let i = 0; i < GAME_BOARD_DIM; i++) {
-                output += ` ${String.fromCharCode(65 + i)}`; // ASCII code 65 is A, so 65 +1 = 66 -> B
+                output += ` ${String.fromCharCode(65 + i)}`; 
             }
             output += '\n';
 
@@ -156,17 +157,17 @@ function createMapLayoutScreen() {
                     const isInShipPreview = this.isPositionInShipPreview(x, y);
 
                     if (isInShipPreview && this.canPlaceShip()) {
-                        // Show ship preview in red
+                     
                         output += ANSI.COLOR.GREEN + '█' + ANSI.RESET + ' ';
                     } else if (isInShipPreview) {
-                        // Show ship preview in white if it cant be placed. 
+                      
                         output += ANSI.COLOR.WHITE + '█' + ANSI.RESET + ' ';
                     }
                     else if (cell !== 0) {
-                        // Show placed ships
+                    
                         output += ANSI.SEA__AND_SHIP + cell + ANSI.RESET + ' ';
                     } else {
-                        // Show waterz
+                       
                         output += ANSI.SEA + ' ' + ANSI.RESET + ' ';
                     }
                 }
@@ -193,9 +194,6 @@ function createMapLayoutScreen() {
 
             print(output);
         }
-
-
-
 
     }
 
