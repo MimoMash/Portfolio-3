@@ -166,14 +166,14 @@ const createBattleshipScreen = () => {
                     if (fireAtPosition(cursorColumn, cursorRow)) {
                         this.isDrawn = false;
                         if (!checkGameOver()) {
-                            setTimeout(() => {
-                                if (shouldSwapPlayer) { 
+                            if (shouldSwapPlayer) {
+                                setTimeout(() => {
                                     swapPlayer();
                                     cursorColumn = 0;
                                     cursorRow = 0;
-                                }
-                                this.isDrawn = false;
-                            }, 1000);
+                                    this.isDrawn = false;
+                                }, 1000);
+                            }
                         }
                     }
                 }
