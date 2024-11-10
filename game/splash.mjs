@@ -11,7 +11,7 @@ const UI = `
  ######  #    #   #     #   ###### ######  #####  #    # # #       ####  
                                                                          `;
 let isDrawn = false;
-let countdown = 1000;
+let countdown = 2500;
 
 const SplashScreen = {
 
