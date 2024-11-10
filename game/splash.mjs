@@ -1,7 +1,8 @@
-import { print, clearScreen, printCenterd } from "../utils/io.mjs";
+import { print, clearScreen, printCentered } from "../utils/io.mjs";
 import { ANSI } from "../utils/ansi.mjs";
 
-const UI = ` ######                                    #####                         
+const UI = ` 
+ ######                                    #####                         
  #     #   ##   ##### ##### #      ###### #     # #    # # #####   ####  
  #     #  #  #    #     #   #      #      #       #    # # #    # #      
  ######  #    #   #     #   #      #####   #####  ###### # #    #  ####  
@@ -10,7 +11,7 @@ const UI = ` ######                                    #####
  ######  #    #   #     #   ###### ######  #####  #    # # #       ####  
                                                                          `;
 let isDrawn = false;
-let countdown = 2500;
+let countdown = 1000;
 
 const SplashScreen = {
 
@@ -28,7 +29,7 @@ const SplashScreen = {
         if (isDrawn == false) {
             isDrawn = true;
             clearScreen();
-            printCenterd(UI);
+            printCentered(UI);
         }
     }
 
