@@ -73,6 +73,7 @@ const createBattleshipScreen = () => {
             turnMessage = currentLanguage.hit;
             shouldSwapPlayer = false;
             return true;
+
         } else {
             opponentBoard.target[y][x] = 'O';
             turnMessage = currentLanguage.miss;
@@ -84,10 +85,10 @@ const createBattleshipScreen = () => {
     function drawBoard(board, showShips = false) {
         let output = '';
         
-        
         output += '  ';
         for (let i = 0; i < GAME_BOARD_DIM; i++) {
             output += ` ${String.fromCharCode(65 + i)}`;
+            
         }
         output += '\n';
     
@@ -195,10 +196,10 @@ const createBattleshipScreen = () => {
         
             const currentPlayerBoard = drawBoard(currentBoard, true).split('\n');
             const opponentPlayerBoard = drawBoard(opponentBoard, false).split('\n');
-        
+
             output += `${currentLanguage.yourShips}${' '.repeat(GAME_BOARD_DIM * 2)}${currentLanguage.opponentBoard}\n`;
             for (let i = 0; i < currentPlayerBoard.length; i++) {
-                output += currentPlayerBoard[i] + '    ' + opponentPlayerBoard[i] + '\n';
+                output += currentPlayerBoard[i] + '\t' + opponentPlayerBoard[i] + '\n';
             }
         
             output += `\n${currentLanguage.controls}:\n`;
