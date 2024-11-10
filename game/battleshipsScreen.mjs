@@ -29,8 +29,9 @@ const createBattleshipScreen = () => {
             currentBoard = secondPlayerBoard;
             opponentBoard = firstPlayerBoard;
         }
-        turnMessage = `Player ${currentPlayer === FIRST_PLAYER ? '1' : '2'}'s Turn`;
-        
+        turnMessage = currentPlayer === FIRST_PLAYER ? 
+            currentLanguage.player1Turn : 
+            currentLanguage.player2Turn;
     }
 
     function isAllShipsSunk(board) {
@@ -69,12 +70,12 @@ const createBattleshipScreen = () => {
     
         if (opponentBoard.ships[y][x] !== 0) {
             opponentBoard.target[y][x] = 'X';
-            turnMessage = 'HIT! Take another shot!';
+            turnMessage = currentLanguage.hit;
             shouldSwapPlayer = false;
             return true;
         } else {
             opponentBoard.target[y][x] = 'O';
-            turnMessage = 'Miss!';
+            turnMessage = currentLanguage.miss;
             shouldSwapPlayer = true;
             return true;
         }
@@ -129,8 +130,11 @@ const createBattleshipScreen = () => {
             secondPlayerBoard = secondPBoard;
             currentBoard = firstPlayerBoard;
             opponentBoard = secondPlayerBoard;
-            turnMessage = `Player ${currentPlayer === FIRST_PLAYER ? '1' : '2'}'s Turn`;
+            turnMessage = currentPlayer === FIRST_PLAYER ? 
+                currentLanguage.player1Turn : 
+                currentLanguage.player2Turn;
         },
+        
 
         update: function(dt) {
             if (gameOver) {
@@ -178,34 +182,34 @@ const createBattleshipScreen = () => {
         draw: function(dr) {
             if (this.isDrawn) return;
             this.isDrawn = true;
-
+        
             clearScreen();
             let output = '';
-
+        
             output += `${ANSI.TEXT.BOLD}${ANSI.COLOR.YELLOW}${turnMessage}${ANSI.TEXT.BOLD_OFF}${ANSI.RESET}\n\n`;
-
+        
             if (gameOver) {
-                output += `${ANSI.TEXT.BOLD}${ANSI.COLOR.GREEN}Game Over! Player ${winner === FIRST_PLAYER ? '1' : '2'} Wins!${ANSI.TEXT.BOLD_OFF}${ANSI.RESET}\n`;
-                output += `Press Enter to return to main menu\n\n`;
+                output += `${ANSI.TEXT.BOLD}${ANSI.COLOR.GREEN}${currentLanguage.gameOver} ${winner === FIRST_PLAYER ? '1' : '2'} ${currentLanguage.wins}${ANSI.TEXT.BOLD_OFF}${ANSI.RESET}\n`;
+                output += `${currentLanguage.returnToMenu}\n\n`;
             }
-
+        
             const currentPlayerBoard = drawBoard(currentBoard, true).split('\n');
             const opponentPlayerBoard = drawBoard(opponentBoard, false).split('\n');
-
-            output += `Your Ships${' '.repeat(GAME_BOARD_DIM * 2)}Opponent's Board\n`;
+        
+            output += `${currentLanguage.yourShips}${' '.repeat(GAME_BOARD_DIM * 2)}${currentLanguage.opponentBoard}\n`;
             for (let i = 0; i < currentPlayerBoard.length; i++) {
                 output += currentPlayerBoard[i] + '    ' + opponentPlayerBoard[i] + '\n';
             }
-
-            output += '\nControls:\n';
-            output += 'Arrow keys: Move cursor\n';
-            output += 'Enter: Fire at position\n';
+        
+            output += `\n${currentLanguage.controls}:\n`;
+            output += `${currentLanguage.moveCursor}\n`;
+            output += `${currentLanguage.firePosition}\n`;
             
-            output += '\nInfo:\n';
-            output += `${ANSI.COLOR.RED}█${ANSI.RESET} Hit  `;
-            output += `${ANSI.COLOR.BLUE}●${ANSI.RESET} Miss  `;
-            output += `${ANSI.COLOR.YELLOW}█${ANSI.RESET} Cursor\n`;
-
+            output += `\n${currentLanguage.infoTitle}:\n`;
+            output += `${ANSI.COLOR.RED}█${ANSI.RESET} ${currentLanguage.hitMarker}  `;
+            output += `${ANSI.COLOR.BLUE}●${ANSI.RESET} ${currentLanguage.missMarker}  `;
+            output += `${ANSI.COLOR.YELLOW}█${ANSI.RESET} ${currentLanguage.cursorMarker}\n`;
+        
             print(output);
         }
     };
