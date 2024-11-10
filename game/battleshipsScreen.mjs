@@ -17,6 +17,7 @@ const createBattleshipScreen = () => {
     let cursorRow = 0;
     let gameOver = false;
     let winner = null;
+    let shouldSwapPlayer = false;
     let turnMessage = '';
 
     function swapPlayer() {
@@ -29,6 +30,7 @@ const createBattleshipScreen = () => {
             opponentBoard = firstPlayerBoard;
         }
         turnMessage = `Player ${currentPlayer === FIRST_PLAYER ? '1' : '2'}'s Turn`;
+        
     }
 
     function isAllShipsSunk(board) {
@@ -57,32 +59,32 @@ const createBattleshipScreen = () => {
     }
 
     function fireAtPosition(x, y) {
-
         if (x < 0 || x >= GAME_BOARD_DIM || y < 0 || y >= GAME_BOARD_DIM) {
             return false;
         }
-
+    
         if (opponentBoard.target[y][x] !== 0) {
-            return false; 
+            return false;
         }
-
+    
         if (opponentBoard.ships[y][x] !== 0) {
-            opponentBoard.target[y][x] = 'X'; 
-            turnMessage = 'HIT!';
+            opponentBoard.target[y][x] = 'X';
+            turnMessage = 'HIT! Take another shot!';
+            shouldSwapPlayer = false;
             return true;
         } else {
-            opponentBoard.target[y][x] = 'O'; 
+            opponentBoard.target[y][x] = 'O';
             turnMessage = 'Miss!';
+            shouldSwapPlayer = true;
             return true;
         }
     }
-
 
     function drawBoard(board, showShips = false) {
         let output = '';
         
         
-        output += '   ';
+        output += '  ';
         for (let i = 0; i < GAME_BOARD_DIM; i++) {
             output += ` ${String.fromCharCode(65 + i)}`;
         }
@@ -160,11 +162,13 @@ const createBattleshipScreen = () => {
                         this.isDrawn = false;
                         if (!checkGameOver()) {
                             setTimeout(() => {
-                                swapPlayer();
-                                cursorColumn = 0;
-                                cursorRow = 0;
+                                if (shouldSwapPlayer) { 
+                                    swapPlayer();
+                                    cursorColumn = 0;
+                                    cursorRow = 0;
+                                }
                                 this.isDrawn = false;
-                            }, 500);
+                            }, 1000);
                         }
                     }
                 }
@@ -188,7 +192,7 @@ const createBattleshipScreen = () => {
             const currentPlayerBoard = drawBoard(currentBoard, true).split('\n');
             const opponentPlayerBoard = drawBoard(opponentBoard, false).split('\n');
 
-            output += `Your Ships${' '.repeat(GAME_BOARD_DIM * 2 + 10)}Opponent's Board\n`;
+            output += `Your Ships${' '.repeat(GAME_BOARD_DIM * 2)}Opponent's Board\n`;
             for (let i = 0; i < currentPlayerBoard.length; i++) {
                 output += currentPlayerBoard[i] + '    ' + opponentPlayerBoard[i] + '\n';
             }
